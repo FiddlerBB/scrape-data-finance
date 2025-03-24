@@ -91,22 +91,22 @@ class GoldCrawler:
         ])
         print(df.head())
 
-def lambda_hanlder(event, context):
+def lambda_handler(event= None, context=None):
     crawler = GoldCrawler()
     # url = "https://www.24h.com.vn/gia-vang-hom-nay-c425.html?ngaythang=2025-02-27"
     url = "https://www.24h.com.vn/gia-vang-hom-nay-c425.html"
     html_data = crawler.get_html_data(url)
     html_data =HTMLParser(html_data)
     out = crawler.parse_table(html_data)
-    sns_arn = 'arn:aws:sns:us-east-1:174227742216:gold-scrape'
-    sns_client = boto3.client('sns')
+    sns_arn = 'arn:aws:sns:us-east-1:174227742216:gold-scrape-topic'
+    sns_client = boto3.client('sns', 'us-east-1')
     message = f"Gold data for today: {out['buy_price']} - {out['sell_price']}"
     sns_client.publish(
         TargetArn=sns_arn,
         Message=message,
         Subject='Gold Data'
     )
-    # crawler.parse_chart(html_data)
+    crawler.parse_chart(html_data)
 
 if __name__=='__main__':
-    lambda_hanlder()
+    lambda_handler()

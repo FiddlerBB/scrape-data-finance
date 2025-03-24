@@ -8,3 +8,13 @@ variable "EMAIL_SUB" {
   description = "subcribe email"
   type = string
 }
+
+variable "AWS_ACCOUNT_ID" {
+  description = "account id"
+  type = string
+}
+
+variable "IMAGE_URI" {
+  description = "image uri"
+  type = string
+}

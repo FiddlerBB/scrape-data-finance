@@ -178,3 +178,6 @@ cython_debug/
 infra/.terraform/
 infra/*.lock.hcl
 infra/*.tfvar
+# **.terraform.lock.hcl
+# **.tfstate
+# **.tfstate.backup
